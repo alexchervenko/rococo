@@ -7,9 +7,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ProfileModalComponent {
-    private static final SelenideElement profileModalWindow = $x("//*[@data-testid='modal-component']");
-    public static final SelenideElement avatar = $x("//*[@data-testid='avatar']");
-
+    private final SelenideElement profileModalWindow = $x("//*[@data-testid='modal-component']");
+    private final SelenideElement avatar = $x("//*[@data-testid='avatar']");
 
     public ProfileModalComponent checkModalElementsAreDisplayed() {
         avatar.should(appear);

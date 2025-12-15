@@ -1,7 +1,8 @@
 package io.student.rococo.page;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
-import com.mifmif.common.regex.Main;
+import io.student.rococo.page.component.ProfileModalComponent;
 
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selectors.byText;
@@ -23,8 +24,9 @@ public class MainPage {
     private final SelenideElement userAvatar = $x("//button[.//@data-testid='avatar']");
 
 
-    public void clickLoginButton() {
-        loginButton.should(appear).click();
+    public LoginPage clickLoginButton() {
+        loginButton.click();
+        return Selenide.page(LoginPage.class);
     }
 
     public MainPage checkUserAvatarIsDisplayed() {
@@ -43,24 +45,24 @@ public class MainPage {
         return this;
     }
 
-    public MainPage openProfileSettings() {
-        userAvatar.should(appear).click();
-        return this;
+    public ProfileModalComponent openProfileSettings() {
+        userAvatar.click();
+        return Selenide.page(ProfileModalComponent.class);
     }
 
-    public MainPage openPicturesCategory() {
-        picturesButton.should(appear).click();
-        return this;
+    public PicturesPage openPicturesCategory() {
+        picturesButton.click();
+        return Selenide.page(PicturesPage.class);
     }
 
-    public MainPage openArtistsCategory() {
-        artistsButton.should(appear).click();
-        return this;
+    public ArtistsPage openArtistsCategory() {
+        artistsButton.click();
+        return Selenide.page(ArtistsPage.class);
     }
 
-    public MainPage openMuseumsCategory() {
-        museumsButton.should(appear).click();
-        return this;
+    public MuseumsPage openMuseumsCategory() {
+        museumsButton.click();
+        return Selenide.page(MuseumsPage.class);
     }
 
 }

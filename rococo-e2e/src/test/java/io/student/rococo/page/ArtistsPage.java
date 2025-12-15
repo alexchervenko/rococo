@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class ArtistsPage {
-    public static final SelenideElement addArtistButton = $(byText("Добавить художника"));
+    private final SelenideElement addArtistButton = $(byText("Добавить художника"));
 
     public ArtistsPage checkAddArtistButtonisDisplayed() {
         addArtistButton.should(appear);

@@ -48,10 +48,10 @@ public class UserDbClient implements UserClient {
                         ps.setString(1, userId);
                         ps.setString(2, username);
                         ps.setString(3, passwordEncoder.encode(password));
-                        ps.setInt(4, 1);
-                        ps.setInt(5, 1);
-                        ps.setInt(6, 1);
-                        ps.setInt(7, 1);
+                        ps.setBoolean(4, true);
+                        ps.setBoolean(5, true);
+                        ps.setBoolean(6, true);
+                        ps.setBoolean(7, true);
                         return ps;
                     }
             );
@@ -66,6 +66,20 @@ public class UserDbClient implements UserClient {
                         );
                         ps.setString(1, userId);
                         ps.setString(2, "write");
+                        return ps;
+                    }
+            );
+
+            jdbcTemplate.update(
+                    (conn) -> {
+                        PreparedStatement ps = conn.prepareStatement(
+                                """
+                                          INSERT INTO authority (user_id, authority) VALUES (UUID_TO_BIN(?, true), ?)
+                                        """,
+                                Statement.RETURN_GENERATED_KEYS
+                        );
+                        ps.setString(1, userId);
+                        ps.setString(2, "read");
                         return ps;
                     }
             );
