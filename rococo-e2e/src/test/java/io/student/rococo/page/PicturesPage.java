@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PicturesPage {
-    public static final SelenideElement addPictureButton = $(byText("Добавить картину"));
+    public final SelenideElement addPictureButton = $(byText("Добавить картину"));
 
     public PicturesPage checkAddPictureButtonisDisplayed() {
         addPictureButton.should(appear);

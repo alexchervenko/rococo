@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class MuseumsPage {
-    public static final SelenideElement addMuseumButton = $(byText("Добавить музей"));
+    public final SelenideElement addMuseumButton = $(byText("Добавить музей"));
 
     public MuseumsPage checkAddMuseumButtonisDisplayed() {
         addMuseumButton.should(appear);
