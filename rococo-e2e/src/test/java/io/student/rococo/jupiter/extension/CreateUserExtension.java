@@ -1,6 +1,7 @@
-package io.student.rococo.jupiter;
+package io.student.rococo.jupiter.extension;
 
 import com.github.javafaker.Faker;
+import io.student.rococo.jupiter.annotation.User;
 import io.student.rococo.model.UserJson;
 import io.student.rococo.service.UserClient;
 import io.student.rococo.service.UserDbClient;
