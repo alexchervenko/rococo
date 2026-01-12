@@ -3,14 +3,14 @@ server:
 
 spring:
   application:
-    name: rococo-gateway
+    name: rococo-api
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: 'http://localhost:9000'
   datasource:
-    url: 'jdbc:mysql://localhost:3306/rococo-gateway?serverTimezone=UTC&createDatabaseIfNotExist=true'
+    url: 'jdbc:mysql://localhost:3306/rococo-api?serverTimezone=UTC&createDatabaseIfNotExist=true'
     hikari:
       connection-timeout: 20000
       minimum-idle: 10
@@ -24,8 +24,8 @@ spring:
     enabled: true
     baseline-on-migrate: true
     baseline-version: 0
-    schemas: rococo-gateway
-    locations: classpath:db/migration/rococo-gateway
+    schemas: rococo-api
+    locations: classpath:db/migration/rococo-api
   jpa:
     hibernate:
       ddl-auto: none
