@@ -42,8 +42,8 @@ create table if not exists `painting`
     title       varchar(255)    not null,
     description varchar(1000),
     artist_id   binary(16)     not null,
-    museum_id   binary(16),
-    content     longblob,
+    museum_id   binary(16)     not null,
+    content     longblob       not null,
     primary key (id),
     constraint fk_artist_id foreign key (artist_id) references `artist` (id),
     constraint fk_museum_id foreign key (museum_id) references `museum` (id)

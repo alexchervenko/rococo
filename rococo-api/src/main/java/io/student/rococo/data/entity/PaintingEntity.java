@@ -23,7 +23,7 @@ public class PaintingEntity {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "museum_id", nullable = false)
+    @JoinColumn(name = "museum_id")
     private MuseumEntity museum;
 
     @ManyToOne
@@ -31,6 +31,6 @@ public class PaintingEntity {
     private ArtistEntity artist;
 
     @Lob
-    @Column(nullable = false, columnDefinition = "LONGBLOB")
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] content;
 }
