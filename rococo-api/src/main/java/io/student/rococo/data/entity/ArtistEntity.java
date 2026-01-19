@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table
+@Table(name = "artist")
 public class ArtistEntity {
     @Id
     @GeneratedValue

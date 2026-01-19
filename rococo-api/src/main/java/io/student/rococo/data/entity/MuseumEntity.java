@@ -29,7 +29,7 @@ public class MuseumEntity {
     @Column(nullable = false, columnDefinition = "LONGBLOB")
     private byte[] photo;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id")
     private CountryEntity country;
 }

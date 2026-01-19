@@ -18,7 +18,16 @@ import java.util.UUID;
 public class ArtistController {
 
     @GetMapping
-    public Page<ArtistJson> getAllArtists(@AuthenticationPrincipal Jwt principal, @PageableDefault Pageable pageable) {
+    public Page<ArtistJson> getAllArtists(
+            @RequestParam(required = false) String name,
+            @PageableDefault Pageable pageable) {
+        if (name != null) {
+            return new PageImpl<>(List.of(
+                    new ArtistJson(
+                            UUID.randomUUID(), name, null, null
+                    )
+            ), pageable, 1);
+        }
         return new PageImpl<>(List.of(
                 new ArtistJson(
                         UUID.randomUUID(), "Le Artist", "Artists that no one knows about", null
@@ -30,19 +39,10 @@ public class ArtistController {
     }
 
     @GetMapping("/{id}")
-    public ArtistJson getArtistById(@PathVariable String id) {
+    public ArtistJson getArtistById(@PathVariable UUID id) {
         return new ArtistJson(
-                UUID.fromString(id), "Le Artist", "Artists that no one knows about", null
+                id, "Le Artist", "Artists that no one knows about", null
         );
-    }
-
-    @GetMapping(params = "name")
-    public Page<ArtistJson> searchArtistsByName(@RequestParam String name, @PageableDefault Pageable pageable) {
-        return new PageImpl<>(List.of(
-                new ArtistJson(
-                        UUID.randomUUID(), name, null, null
-                )
-        ), pageable, 1);
     }
 
     @PostMapping
@@ -51,7 +51,9 @@ public class ArtistController {
     }
 
     @PatchMapping
-    public ResponseEntity<ArtistJson> updateArtist(@AuthenticationPrincipal Jwt principal, @RequestBody ArtistJson artist) {
+    public ResponseEntity<ArtistJson> updateArtist(@AuthenticationPrincipal Jwt
+                                                           principal, @RequestBody ArtistJson
+                                                           artist) {
         return ResponseEntity.ok(artist);
     }
 }

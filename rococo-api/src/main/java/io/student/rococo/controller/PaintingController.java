@@ -20,9 +20,9 @@ import java.util.UUID;
 public class PaintingController {
 
     @GetMapping("/{id}")
-    public PaintingJson getPaintingById(@PathVariable String id) {
+    public PaintingJson getPaintingById(@PathVariable UUID id) {
         return new PaintingJson(
-                UUID.fromString(id),
+                id,
                 "Pretty Picture",
                 "Description",
                 null,
@@ -32,7 +32,21 @@ public class PaintingController {
     }
 
     @GetMapping
-    public Page<PaintingJson> getAllPaintings(@AuthenticationPrincipal Jwt principal, @PageableDefault Pageable pageable) {
+    public Page<PaintingJson> getAllPaintings(
+            @RequestParam(required = false) String title,
+            @PageableDefault Pageable pageable) {
+        if (title != null) {
+            return new PageImpl<>(List.of(
+                    new PaintingJson(
+                            UUID.randomUUID(),
+                            title,
+                            null,
+                            null,
+                            null,
+                            null
+                    )
+            ), pageable, 1);
+        }
         return new PageImpl<>(List.of(
                 new PaintingJson(
                         UUID.randomUUID(),
@@ -54,7 +68,7 @@ public class PaintingController {
     }
 
     @GetMapping("/author/{artistId}")
-    public Page<PaintingJson> getPaintingsByArtist(@PathVariable String artistId, @PageableDefault Pageable pageable) {
+    public Page<PaintingJson> getPaintingsByArtist(@PathVariable UUID artistId, @PageableDefault Pageable pageable) {
         return new PageImpl<>(List.of(
                 new PaintingJson(
                         UUID.randomUUID(),
@@ -62,25 +76,11 @@ public class PaintingController {
                         null,
                         null,
                         new ArtistJson(
-                                UUID.fromString(artistId),
+                                artistId,
                                 "Le Artist",
                                 "Artists that no one knows about",
                                 null
                         ),
-                        null
-                )
-        ), pageable, 1);
-    }
-
-    @GetMapping(params = "title")
-    public Page<PaintingJson> searchPaintingsByTitle(@RequestParam String title, Pageable pageable) {
-        return new PageImpl<>(List.of(
-                new PaintingJson(
-                        UUID.randomUUID(),
-                        title,
-                        null,
-                        null,
-                        null,
                         null
                 )
         ), pageable, 1);

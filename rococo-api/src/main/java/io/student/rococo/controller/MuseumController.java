@@ -10,6 +10,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/museum")
 public class MuseumController {
@@ -22,19 +24,20 @@ public class MuseumController {
     }
 
     @GetMapping
-    public Page<MuseumJson> getAllMuseums(@PageableDefault Pageable pageable) {
+    public Page<MuseumJson> getAllMuseums(
+            @RequestParam(required = false) String title,
+            @PageableDefault Pageable pageable) {
+        if (title != null) {
+            return museumService.findMuseumsByTitle(title, pageable);
+        }
         return museumService.getAllMuseums(pageable);
     }
 
     @GetMapping("/{id}")
-    public MuseumJson getMuseumById(@PathVariable String id) {
+    public MuseumJson getMuseumById(@PathVariable UUID id) {
         return museumService.findMuseumById(id);
     }
 
-    @GetMapping(params = "title")
-    public Page<MuseumJson> searchMuseumsByTitle(@RequestParam String title, Pageable pageable) {
-        return museumService.findMuseumsByTitle(title, pageable);
-    }
 
     @PatchMapping
     public MuseumJson updateMuseum(@AuthenticationPrincipal Jwt principal, @RequestBody MuseumJson museumJson) {

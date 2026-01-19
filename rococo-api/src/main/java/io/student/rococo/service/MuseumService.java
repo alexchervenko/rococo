@@ -28,8 +28,8 @@ public class MuseumService {
         this.countryRepository = countryRepository;
     }
 
-    public MuseumJson findMuseumById(String id) {
-        return museumRepository.findById(UUID.fromString(id)).map(e -> new MuseumJson(
+    public MuseumJson findMuseumById(UUID id) {
+        return museumRepository.findById(id).map(e -> new MuseumJson(
                 e.getId(),
                 e.getTitle(),
                 e.getDescription(),

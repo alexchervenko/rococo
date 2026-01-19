@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
-@Profile({"local", "docker", "staging"})
 public class RococoApiConfiguration {
     private final CorsCustomizer corsCustomizer;
 
