@@ -44,20 +44,16 @@ public class MuseumService {
         )).orElseThrow(() -> new RuntimeException("Museum not found"));
     }
 
-    public Page<MuseumJson> getAllMuseums(Pageable pageable) {
-        return museumRepository.findAll(pageable).map(e -> new MuseumJson(
-                e.getId(),
-                e.getTitle(),
-                e.getDescription(),
-                new String(e.getPhoto(), StandardCharsets.UTF_8),
-                new GeoJson(
-                        e.getCity(),
-                        new CountryJson(
-                                e.getCountry().getId(),
-                                e.getCountry().getName()
-                        )
-                )
-        ));
+    public Page<MuseumJson> getAllMuseums(Pageable pageable, String title) {
+        Page<MuseumEntity> page;
+
+        if (title != null && !title.isBlank()) {
+            page = museumRepository.findByTitleContainingIgnoreCase(title, pageable);
+        } else {
+            page = museumRepository.findAll(pageable);
+        }
+
+        return page.map(this::toJson);
     }
 
     @Transactional
@@ -135,6 +131,23 @@ public class MuseumService {
                         new CountryJson(
                                 updatedMuseum.getCountry().getId(),
                                 updatedMuseum.getCountry().getName()
+                        )
+                )
+        );
+    }
+
+
+    private MuseumJson toJson(MuseumEntity museum) {
+        return new MuseumJson(
+                museum.getId(),
+                museum.getTitle(),
+                museum.getDescription(),
+                new String(museum.getPhoto(), StandardCharsets.UTF_8),
+                new GeoJson(
+                        museum.getCity(),
+                        new CountryJson(
+                                museum.getCountry().getId(),
+                                museum.getCountry().getName()
                         )
                 )
         );

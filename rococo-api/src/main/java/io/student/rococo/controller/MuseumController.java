@@ -27,10 +27,7 @@ public class MuseumController {
     public Page<MuseumJson> getAllMuseums(
             @RequestParam(required = false) String title,
             @PageableDefault Pageable pageable) {
-        if (title != null) {
-            return museumService.findMuseumsByTitle(title, pageable);
-        }
-        return museumService.getAllMuseums(pageable);
+        return museumService.getAllMuseums(pageable, title);
     }
 
     @GetMapping("/{id}")
