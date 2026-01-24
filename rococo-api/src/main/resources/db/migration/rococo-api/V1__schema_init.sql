@@ -49,7 +49,7 @@ create table if not exists `painting`
     constraint fk_museum_id foreign key (museum_id) references `museum` (id)
     );
 
-delete from `rococo-api`.`user`;
+delete from `rococo-api`.`users`;
 delete from `rococo-api`.`painting`;
 delete from `rococo-api`.`artist`;
 delete from `rococo-api`.`museum`;
